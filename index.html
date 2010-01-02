@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>purr - Mootools alert / notification class</title>
+		<link rel="stylesheet" href="purr.css" type="text/css" media="screen" charset="utf-8" />
+		<script type="text/javascript" src="mootools-core.js"></script>
+		<script type="text/javascript" src="purr.js"></script>
+		<script type="text/javascript">
+			window.addEvent('domready', function(){
+				// create an instance for simple examples
+				var example = new purr({
+					'mode': 	'top',
+					'position': 'center'
+				});
+				example.alert('Click on the code blocks below to see different examples of purr in action.<br/><br/>You can dismiss this message by clicking on it.', {
+					'class': 'notice',
+					'hideAfter': false
+				});
+				$(document.body).getElements('pre.example').each(function(code){
+					code.addEvent('click', function(){
+						eval(this.get('text'));
+					});
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div id="container">
+			<h1>purr usage examples</h1>
+			<div class="section">
+				<h2>A variety of usage examples for purr.</h2>
+<pre>
+// this code ran when the page loaded
+window.addEvent('domready', function(){
+	// create an instance for simple examples
+	var example = new purr({
+		'mode': 	'top',
+		'position': 'center'
+	});
+	example.alert('Click on the code blocks below to see different examples of purr in action.&lt;br/&gt;&lt;br/&gt;You can dismiss this message by clicking on it.', {
+		'class': 'notice',
+		'hideAfter': false
+	});
+	$(document.body).getElements('pre').each(function(code){
+		code.addEvent('click', function(){
+			eval(this.get('text'));
+		});
+	});
+});
+</pre>
+<pre class="example">
+example.alert('as simple as it gets.');
+</pre>
+<pre class="example">
+example.alert(['an array', 'will create', 'multiple alerts'], {
+	'hideAfter': 3000
+});
+</pre>
+<pre class="example">
+example.alert('a click will usually dismiss these, not this one though', {
+	'clickDismiss': false
+});
+</pre>
+<pre class="example">
+// add special classes
+example.alert('an extra class added', {
+	'class': 'success'
+});
+example.alert('an extra class added', {
+	'class': 'error'
+});
+example.alert('an extra class added', {
+	'class': 'notice'
+});
+</pre>
+<pre class="example">
+example.alert('repeating highlight, ever 2 seconds', {
+	'hideAfter': 		10000, // show a little longer
+	'highlightRepeat': 	2000
+});
+</pre>
+<pre class="example">
+example.alert('no highlight on this one.', {
+	'highlight': false
+});
+</pre>
+<pre class="example">
+example.alert('no fancy fx on this one.', {
+	'highlight': false,
+	'fx': {
+		'duration': 0
+	}
+});
+</pre>
+<pre class="example">
+example.alert('won\'t go away unless you click the button.', {
+	'hideAfter': false,
+	'buttons': [{
+		'text': 	'go away',
+		'callback':	function(element){
+			example.fadeOut(element)
+		}
+	}]
+});
+example.alert('Please note that if you pass a button in, clickDismiss will be disabled, but the auto-hiding is still enabled unless you say otherwise.', {
+	'class': 'notice'
+});
+</pre>
+<pre class="example">
+// alert returns the element so you can do stuff to it.
+example.alert('Big Pink Text!').setStyles({
+	'font-size':	'36px',
+	'color':		'#F0F'
+})
+</pre>
+<pre class="example">
+// html works as well
+example.alert('&lt;img src=&quot;http://mootools.net/assets/images/mootools.png&quot;&gt;');
+example.alert('&lt;object width=&quot;300&quot; height=&quot;265&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;http://www.youtube.com/v/-q9uLtzDId8&amp;hl=en_US&amp;fs=1&amp;&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowFullScreen&quot; value=&quot;true&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowscriptaccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;embed src=&quot;http://www.youtube.com/v/-q9uLtzDId8&amp;hl=en_US&amp;fs=1&amp;&quot; type=&quot;application/x-shockwave-flash&quot; allowscriptaccess=&quot;always&quot; allowfullscreen=&quot;true&quot; width=&quot;300&quot; height=&quot;265&quot;&gt;&lt;/embed&gt;&lt;/object&gt;', {
+	'hideAfter': false,
+	// you can have as many buttons / callbacks as you want
+	// accepts an array of objects
+	'buttons': [{
+		'text':		'close',
+		'callback':	function(element){
+			example.fadeOut(element);
+		}
+	},{
+		'text':		'replace video with cat',
+		'callback':	function(element){
+			new Element('img', {
+				'src': 'cat.jpg'
+			}).replaces(element.getElement('embed'));
+			element.getElements('button')[1].destroy();
+		}
+	}]
+});
+</pre>
+<pre class="example">
+// a login form for the hell of it
+var form = new Element('form', {
+	'action': '#'
+});
+form.grab(new Element('h2', {
+	'text': 'login form'
+}));
+form.grab(new Element('input'));
+
+// if you pass an element, it will be injected
+example.alert(form, {
+	'hide': false
+});
+</pre>
+			</div>
+			<div class="section">
+				<h2>Change the mode / position. Go back up and try the other examples after switching it.</h2>
+<pre class="example">
+// change example to bottom mode, position on left
+example = new purr({
+	'mode': 	'bottom',
+	'position':	'left'
+});
+example.alert("in 'mode': 'bottom', the notifications will be placed at the bottom of the page, and the oldest entries will be at the bottom", {
+	'class': 'notice'
+});
+example.alert('I am on the bottom left!');
+</pre>
+<pre class="example">
+// change example to top mode, position on right
+example = new purr({
+	'mode': 	'top',
+	'position':	'right'
+});
+example.alert("in 'mode': 'top', the notifications will be placed at the top of the page, and the oldest entries will be at the top", {
+	'class': 'notice'
+});
+example.alert('I am on the top right!');
+</pre>
+<pre class="example">
+// change example to bottom mode, position on right
+example = new purr({
+	'mode': 	'bottom',
+	'position':	'right'
+});
+example.alert("in 'mode': 'bottom', the notifications will be placed at the bottom of the page, and the oldest entries will be at the bottom", {
+	'class': 'notice'
+});
+example.alert('I am on the bottom right!');
+</pre>
+<pre class="example">
+// change example to top mode, position on left
+example = new purr({
+	'mode': 	'top',
+	'position':	'left'
+});
+example.alert("in 'mode': 'top', the notifications will be placed at the top of the page, and the oldest entries will be at the top", {
+	'class': 'notice'
+});
+example.alert('I am on the top left!');
+</pre>
+<pre class="example">
+// change example bottom mode, position back in the center
+example = new purr({
+	'mode': 	'bottom',
+	'position':	'center'
+});
+example.alert("in 'mode': 'bottom', the notifications will be placed at the bottom of the page, and the oldest entries will be at the bottom", {
+	'class': 'notice'
+});
+example.alert('I am on the bottom and centered!');
+</pre>
+			</div>
+		</div>
+	</body>
+</html>
