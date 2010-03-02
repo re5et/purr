@@ -2,19 +2,19 @@
       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title>purr - Mootools alert / notification class</title>
-		<link rel="stylesheet" href="purr.css" type="text/css" media="screen" charset="utf-8" />
-		<script type="text/javascript" src="mootools-core.js"></script>
-		<script type="text/javascript" src="purr.js"></script>
+		<title>Purr - Mootools alert / notification class</title>
+		<link rel="stylesheet" href="assets/css/purr-example.css" type="text/css" media="screen" charset="utf-8" />
+		<script type="text/javascript" src="assets/js/mootools-core.js"></script>
+		<script type="text/javascript" src="assets/js/Purr.js"></script>
 		<script type="text/javascript">
 			window.addEvent('domready', function(){
 				// create an instance for simple examples
-				var example = new purr({
+				var example = new Purr({
 					'mode': 	'top',
 					'position': 'center'
 				});
 				example.alert('Click on the code blocks below to see different examples of purr in action.<br/><br/>You can dismiss this message by clicking on it.', {
-					'class': 'notice',
+					'className': 'notice',
 					'hideAfter': false
 				});
 				$(document.body).getElements('pre.example').each(function(code){
@@ -27,19 +27,19 @@
 	</head>
 	<body>
 		<div id="container">
-			<h1>purr usage examples</h1>
+			<h1>Purr usage examples</h1>
 			<div class="section">
-				<h2>A variety of usage examples for purr.</h2>
+				<h2>A variety of usage examples for Purr.</h2>
 <pre>
 // this code ran when the page loaded
 window.addEvent('domready', function(){
 	// create an instance for simple examples
-	var example = new purr({
+	var example = new Purr({
 		'mode': 	'top',
 		'position': 'center'
 	});
 	example.alert('Click on the code blocks below to see different examples of purr in action.&lt;br/&gt;&lt;br/&gt;You can dismiss this message by clicking on it.', {
-		'class': 'notice',
+		'className': 'notice',
 		'hideAfter': false
 	});
 	$(document.body).getElements('pre').each(function(code){
@@ -65,13 +65,13 @@ example.alert('a click will usually dismiss these, not this one though', {
 <pre class="example">
 // add special classes
 example.alert('an extra class added', {
-	'class': 'success'
+	'className': 'success'
 });
 example.alert('an extra class added', {
-	'class': 'error'
+	'className': 'error'
 });
 example.alert('an extra class added', {
-	'class': 'notice'
+	'className': 'notice'
 });
 </pre>
 <pre class="example">
@@ -104,7 +104,7 @@ example.alert('won\'t go away unless you click the button.', {
 	}]
 });
 example.alert('Please note that if you pass a button in, clickDismiss will be disabled, but the auto-hiding is still enabled unless you say otherwise.', {
-	'class': 'notice'
+	'className': 'notice'
 });
 </pre>
 <pre class="example">
@@ -130,7 +130,7 @@ example.alert('&lt;object width=&quot;300&quot; height=&quot;265&quot;&gt;&lt;pa
 		'text':		'replace video with cat',
 		'callback':	function(element){
 			new Element('img', {
-				'src': 'cat.jpg'
+				'src': 'assets/images/cat.jpg'
 			}).replaces(element.getElement('embed'));
 			element.getElements('button')[1].destroy();
 		}
@@ -138,75 +138,77 @@ example.alert('&lt;object width=&quot;300&quot; height=&quot;265&quot;&gt;&lt;pa
 });
 </pre>
 <pre class="example">
-// a login form for the hell of it
-var form = new Element('form', {
-	'action': '#'
-});
-form.grab(new Element('h2', {
-	'text': 'login form'
+// an html element can be passed in instead of text or an array
+// it will be injected into the notification
+var followMe = new Element('a', {
+	'styles': {
+		'display':'block',
+		'text-align':'center'
+	},
+	'href': 'http://twitter.com/re5et',
+	'target': '_blank'
+}).grab(new Element('img', {
+	'src': 'assets/images/follow-me.png'
 }));
-form.grab(new Element('input'));
 
 // if you pass an element, it will be injected
-example.alert(form, {
-	'hide': false
-});
+example.alert(followMe);
 </pre>
 			</div>
 			<div class="section">
 				<h2>Change the mode / position. Go back up and try the other examples after switching it.</h2>
 <pre class="example">
 // change example to bottom mode, position on left
-example = new purr({
+example = new Purr({
 	'mode': 	'bottom',
 	'position':	'left'
 });
 example.alert("in 'mode': 'bottom', the notifications will be placed at the bottom of the page, and the oldest entries will be at the bottom", {
-	'class': 'notice'
+	'className': 'notice'
 });
 example.alert('I am on the bottom left!');
 </pre>
 <pre class="example">
 // change example to top mode, position on right
-example = new purr({
+example = new Purr({
 	'mode': 	'top',
 	'position':	'right'
 });
 example.alert("in 'mode': 'top', the notifications will be placed at the top of the page, and the oldest entries will be at the top", {
-	'class': 'notice'
+	'className': 'notice'
 });
 example.alert('I am on the top right!');
 </pre>
 <pre class="example">
 // change example to bottom mode, position on right
-example = new purr({
+example = new Purr({
 	'mode': 	'bottom',
 	'position':	'right'
 });
 example.alert("in 'mode': 'bottom', the notifications will be placed at the bottom of the page, and the oldest entries will be at the bottom", {
-	'class': 'notice'
+	'className': 'notice'
 });
 example.alert('I am on the bottom right!');
 </pre>
 <pre class="example">
 // change example to top mode, position on left
-example = new purr({
+example = new Purr({
 	'mode': 	'top',
 	'position':	'left'
 });
 example.alert("in 'mode': 'top', the notifications will be placed at the top of the page, and the oldest entries will be at the top", {
-	'class': 'notice'
+	'className': 'notice'
 });
 example.alert('I am on the top left!');
 </pre>
 <pre class="example">
 // change example bottom mode, position back in the center
-example = new purr({
+example = new Purr({
 	'mode': 	'bottom',
 	'position':	'center'
 });
 example.alert("in 'mode': 'bottom', the notifications will be placed at the bottom of the page, and the oldest entries will be at the bottom", {
-	'class': 'notice'
+	'className': 'notice'
 });
 example.alert('I am on the bottom and centered!');
 </pre>
