@@ -1,26 +1,31 @@
-var purr = new Class({
+var Purr = new Class({
 	
 	'options': {
 		'mode': 'top',
 		'position': 'left',
+		'elementAlertClass': 'purr-element-alert',
 		'elements': {
 			'wrapper': 'div',
 			'alert': 'div',
+			'buttonWrapper': 'div',
 			'button': 'button'
 		},
 		'elementOptions': {
 			'wrapper': {
-				'id': 'purr-wrapper',
 				'styles': {
 					'position': 'fixed',
-					'z-index': '99999999'
-				}
+					'z-index': '9999'
+				},
+				'class': 'purr-wrapper'
 			},
 			'alert': {
 				'class': 'purr-alert',
 				'styles': {
 					'opacity': '.85'
 				}
+			},
+			'buttonWrapper': {
+				'class': 'purr-button-wrapper'
 			},
 			'button': {
 				'class': 'purr-button'
@@ -29,9 +34,10 @@ var purr = new Class({
 		'alert': {
 			'buttons': [],
 			'clickDismiss': true,
+			'hoverWait': true,
 			'hideAfter': 5000,
 			'fx': {
-				'duration': 1000
+				'duration': 500
 			},
 			'highlight': false,
 			'highlightRepeat': false,
@@ -69,7 +75,19 @@ var purr = new Class({
 	},
 	
 	'positionWrapper': function(position){
-		if(position == 'left')
+		if($type(position) == 'object')
+		{
+			
+			var wrapperCoords = this.getWrapperCoords();
+			
+			this.wrapper.setStyles({
+				'bottom': '',
+				'left': position.x,
+				'top': position.y - wrapperCoords.height,
+				'position': 'absolute'
+			});
+		}
+		else if(position == 'left')
 		{
 			this.wrapper.setStyle('left', 0);
 		}
@@ -79,16 +97,21 @@ var purr = new Class({
 		}
 		else
 		{
-			this.wrapper.setStyle('visibility', 'hidden');
-			var measurer = this.alert('need something in here to measure');
-			this.wrapper.setStyle('left', (window.innerWidth / 2) - (this.wrapper.getWidth() / 2));
-			measurer.destroy();
-			this.wrapper.setStyle('visibility','');
+			this.wrapper.setStyle('left', (window.innerWidth / 2) - (this.getWrapperCoords().width / 2));
 		}
+		return this;
+	},
+	
+	'getWrapperCoords': function(){
+		this.wrapper.setStyle('visibility', 'hidden');
+		var measurer = this.alert('need something in here to measure');
+		var coords = this.wrapper.getCoordinates();
+		measurer.destroy();
+		this.wrapper.setStyle('visibility','');
+		return coords;
 	},
 	
 	'alert': function(msg, options){
-		
 		
 		var alert = new Element(this.options.elements.alert, this.options.elementOptions.alert);
 		if($type(msg) == 'string')
@@ -113,20 +136,30 @@ var purr = new Class({
 		if(options.buttons.length > 0)
 		{
 			options.clickDismiss = false;
+			options.hideAfter = false;
+			options.hoverWait = false;
+			var buttonWrapper = new Element(this.options.elements.buttonWrapper, this.options.elementOptions.buttonWrapper);
+			alert.grab(buttonWrapper);
 			options.buttons.each(function(button){
-				if($defined(button.text) && $defined(button.callback))
+				if($defined(button.text))
 				{
-					alert.grab(
-						new Element(this.options.elements.button, this.options.elementOptions)
-						.set('html', button.text)
-						.addEvent('click', button.callback.pass(alert))
-					);
+					var callbackButton = new Element(this.options.elements.button, this.options.elementOptions.button);
+					callbackButton.set('html', button.text);
+					if($defined(button.callback))
+					{
+						callbackButton.addEvent('click', button.callback.pass(alert));
+					}
+					if($defined(button.dismiss) && button.dismiss)
+					{
+						callbackButton.addEvent('click', this.dismiss.pass(alert, this));
+					}
+					buttonWrapper.grab(callbackButton);
 				}
 			}, this);
 		}
-		if($defined(options.class))
+		if($defined(options.className))
 		{
-			alert.addClass(options.class);
+			alert.addClass(options.className);
 		}		
 		
 		this.wrapper.grab(alert, (this.options.mode == 'top') ? 'bottom' : 'top');
@@ -154,8 +187,21 @@ var purr = new Class({
 		if(options.clickDismiss)
 		{
 			alert.addEvent('click', function(){
+				this.holdUp = false;
 				this.dismiss(alert, true);
 			}.bind(this));
+		}
+		
+		if(options.hoverWait)
+		{
+			alert.addEvents({
+				'mouseenter': function(){
+					this.holdUp = true;
+				}.bind(this),
+				'mouseleave': function(){
+					this.holdUp = false;
+				}.bind(this)
+			});
 		}
 		
 		return alert;
@@ -185,6 +231,11 @@ var purr = new Class({
 	},
 	
 	'fadeOut': function(alert){
+		if(this.holdUp)
+		{
+			this.dismiss.delay(100, this, [alert, true])
+			return null;
+		}
 		var alertFx = alert.retrieve('fx');
 		if(!alertFx)
 		{
@@ -206,4 +257,32 @@ var purr = new Class({
 			alert.destroy();
 		});
 	}
+});
+
+Element.implement({
+	
+	'alert': function(msg, options){
+		var alert = this.retrieve('alert');
+		if(!alert)
+		{
+			options = options || {
+				'mode':'top' 
+			};
+			alert = new Purr(options)
+			this.store('alert', alert);
+		}
+
+		var coords = this.getCoordinates();
+		
+		alert.alert(msg, options);
+		
+		alert.wrapper.setStyles({
+			'bottom': '',
+			'left': (coords.left - (alert.wrapper.getWidth() / 2)) + (this.getWidth() / 2),
+			'top': coords.top - (alert.wrapper.getHeight()),
+			'position': 'absolute'
+		});
+		
+	}
+	
 });
