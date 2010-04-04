@@ -37,9 +37,6 @@ pre.example:active{
 	border:1px solid #CCC;
 	margin-bottom:20px;
 }
-#purr-wrapper{
-	padding:10px;
-}
 .purr-alert{
 	margin-bottom:10px;
 	padding:10px;
@@ -58,18 +55,35 @@ pre.example:active{
 .purr-alert.error{
 	color:#F55;
 	padding-left:30px;
-	background:url(error.png) no-repeat #000 7px 10px;
+	background:url(images/error.png) no-repeat #000 7px 10px;
 	width:280px;
 }
 .purr-alert.success{
 	color:#5F5;
 	padding-left:30px;
-	background:url(success.png) no-repeat #000 7px 10px;
+	background:url(images/success.png) no-repeat #000 7px 10px;
 	width:280px;
 }
 .purr-alert.notice{
 	color:#99F;
 	padding-left:30px;
-	background:url(notice.png) no-repeat #000 7px 10px;
+	background:url(images/notice.png) no-repeat #000 7px 10px;
 	width:280px;
+}
+
+.purr-element-alert{
+	width:200px;
+}
+
+.purr-button-wrapper{
+	text-align:center;
+}
+
+#test-element{
+	position:absolute;
+	left:200px;
+	top:200px;
+	width:100px;
+	height:100px;
+	background:#0F0;
 }

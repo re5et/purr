@@ -9,7 +9,7 @@
 		<script type="text/javascript">
 			window.addEvent('domready', function(){
 				// create an instance for simple examples
-				var example = new purr({
+				var example = new Purr({
 					'mode': 	'top',
 					'position': 'center'
 				});
@@ -22,10 +22,15 @@
 						eval(this.get('text'));
 					});
 				});
+				
+				$('test-element').addEvent('click', function(){
+					this.alert('This is an $("id").alert() example!  Some text to make it a bit longer to test styles.');
+				});
 			});
 		</script>
 	</head>
 	<body>
+		<div id="test-element"></div>
 		<div id="container">
 			<h1>purr usage examples</h1>
 			<div class="section">
@@ -34,7 +39,7 @@
 // this code ran when the page loaded
 window.addEvent('domready', function(){
 	// create an instance for simple examples
-	var example = new purr({
+	var example = new Purr({
 		'mode': 	'top',
 		'position': 'center'
 	});
@@ -75,8 +80,8 @@ example.alert('an extra class added', {
 });
 </pre>
 <pre class="example">
-example.alert('repeating highlight, ever 2 seconds', {
-	'hideAfter': 		10000, // show a little longer
+example.alert('repeating highlight, every 2 seconds', {
+	'hideAfter': 		15000, // show a little longer
 	'highlightRepeat': 	2000
 });
 </pre>
@@ -99,7 +104,7 @@ example.alert('won\'t go away unless you click the button.', {
 	'buttons': [{
 		'text': 	'go away',
 		'callback':	function(element){
-			example.fadeOut(element)
+			example.fadeOut(element, true)
 		}
 	}]
 });
@@ -130,7 +135,7 @@ example.alert('&lt;object width=&quot;300&quot; height=&quot;265&quot;&gt;&lt;pa
 		'text':		'replace video with cat',
 		'callback':	function(element){
 			new Element('img', {
-				'src': 'cat.jpg'
+				'src': 'images/cat.jpg'
 			}).replaces(element.getElement('embed'));
 			element.getElements('button')[1].destroy();
 		}
@@ -140,16 +145,54 @@ example.alert('&lt;object width=&quot;300&quot; height=&quot;265&quot;&gt;&lt;pa
 <pre class="example">
 // a login form for the hell of it
 var form = new Element('form', {
-	'action': '#'
+	'action':	'#',
+	'id':		'login-form'
 });
 form.grab(new Element('h2', {
 	'text': 'login form'
 }));
-form.grab(new Element('input'));
+var usernameP = new Element('p');
+var usernameLabel = new Element('label', {
+	'text': 'username:',
+	'for': 'username'
+});
+var usernameInput = new Element('input', {
+	'name': 'username',
+	'id':	'username'	
+});
+var passwordP = new Element('p');
+var passwordLabel = new Element('label', {
+	'text': 'password:',
+	'for': 'password'
+});
+var passwordInput = new Element('input', {
+	'name': 'password',
+	'type': 'password',
+	'id':	'username'	
+});
+usernameP.grab(usernameLabel.grab(usernameInput));
+passwordP.grab(passwordLabel.grab(passwordInput));
+form.grab(usernameP).grab(passwordP);
 
 // if you pass an element, it will be injected
 example.alert(form, {
-	'hide': false
+	'buttons': [{
+		'text': 'log in &raquo;',
+		'callback': function(){
+			var request = new Request({
+				'url': './'
+			});
+			request.addEvent('complete', function(){
+				console.log(this);
+				example.alert('log in successful!', {
+					'class': 'success'
+				});
+			});
+			request.send();
+		}
+	},{
+		'text': 'cancel'
+	}]
 });
 </pre>
 			</div>
@@ -157,7 +200,7 @@ example.alert(form, {
 				<h2>Change the mode / position. Go back up and try the other examples after switching it.</h2>
 <pre class="example">
 // change example to bottom mode, position on left
-example = new purr({
+example = new Purr({
 	'mode': 	'bottom',
 	'position':	'left'
 });
@@ -168,7 +211,7 @@ example.alert('I am on the bottom left!');
 </pre>
 <pre class="example">
 // change example to top mode, position on right
-example = new purr({
+example = new Purr({
 	'mode': 	'top',
 	'position':	'right'
 });
@@ -179,7 +222,7 @@ example.alert('I am on the top right!');
 </pre>
 <pre class="example">
 // change example to bottom mode, position on right
-example = new purr({
+example = new Purr({
 	'mode': 	'bottom',
 	'position':	'right'
 });
@@ -190,18 +233,18 @@ example.alert('I am on the bottom right!');
 </pre>
 <pre class="example">
 // change example to top mode, position on left
-example = new purr({
+example = new Purr({
 	'mode': 	'top',
 	'position':	'left'
 });
-example.alert("in 'mode': 'top', the notifications will be placed at the top of the page, and the oldest entries will be at the top", {
+example.alert("in 'mode':'top', the notifications will be placed at the top of the page, and the oldest entries will be at the top", {
 	'class': 'notice'
 });
 example.alert('I am on the top left!');
 </pre>
 <pre class="example">
 // change example bottom mode, position back in the center
-example = new purr({
+example = new Purr({
 	'mode': 	'bottom',
 	'position':	'center'
 });
