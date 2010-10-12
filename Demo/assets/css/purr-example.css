@@ -37,12 +37,9 @@ pre.example:active{
 	border:1px solid #CCC;
 	margin-bottom:20px;
 }
-<<<<<<< HEAD:purr.css
-=======
 .purr-wrapper{
 	margin:10px;
 }
->>>>>>> fe82f1128e9f65ebe74b1ce5bad011dddd22071a:assets/css/purr-example.css
 .purr-alert{
 	margin-bottom:10px;
 	padding:10px;
@@ -62,31 +59,19 @@ pre.example:active{
 .purr-alert.error{
 	color:#F55;
 	padding-left:30px;
-<<<<<<< HEAD:purr.css
-	background:url(images/error.png) no-repeat #000 7px 10px;
-=======
 	background:url(../images/error.png) no-repeat #000 7px 10px;
->>>>>>> fe82f1128e9f65ebe74b1ce5bad011dddd22071a:assets/css/purr-example.css
 	width:280px;
 }
 .purr-alert.success{
 	color:#5F5;
 	padding-left:30px;
-<<<<<<< HEAD:purr.css
-	background:url(images/success.png) no-repeat #000 7px 10px;
-=======
 	background:url(../images/success.png) no-repeat #000 7px 10px;
->>>>>>> fe82f1128e9f65ebe74b1ce5bad011dddd22071a:assets/css/purr-example.css
 	width:280px;
 }
 .purr-alert.notice{
 	color:#99F;
 	padding-left:30px;
-<<<<<<< HEAD:purr.css
-	background:url(images/notice.png) no-repeat #000 7px 10px;
-=======
 	background:url(../images/notice.png) no-repeat #000 7px 10px;
->>>>>>> fe82f1128e9f65ebe74b1ce5bad011dddd22071a:assets/css/purr-example.css
 	width:280px;
 }
 
@@ -96,7 +81,6 @@ pre.example:active{
 
 .purr-button-wrapper{
 	text-align:center;
-<<<<<<< HEAD:purr.css
 }
 
 #test-element{
@@ -106,6 +90,4 @@ pre.example:active{
 	width:100px;
 	height:100px;
 	background:#0F0;
-=======
->>>>>>> fe82f1128e9f65ebe74b1ce5bad011dddd22071a:assets/css/purr-example.css
 }
