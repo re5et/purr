@@ -2,10 +2,10 @@
       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title>purr - Mootools alert / notification class</title>
-		<link rel="stylesheet" href="purr.css" type="text/css" media="screen" charset="utf-8" />
-		<script type="text/javascript" src="mootools-core.js"></script>
-		<script type="text/javascript" src="purr.js"></script>
+		<title>Purr - Mootools alert / notification class</title>
+		<link rel="stylesheet" href="assets/css/purr-example.css" type="text/css" media="screen" charset="utf-8" />
+		<script type="text/javascript" src="assets/js/mootools-core.js"></script>
+		<script type="text/javascript" src="assets/js/Purr.js"></script>
 		<script type="text/javascript">
 			window.addEvent('domready', function(){
 				// create an instance for simple examples
@@ -14,7 +14,7 @@
 					'position': 'center'
 				});
 				example.alert('Click on the code blocks below to see different examples of purr in action.<br/><br/>You can dismiss this message by clicking on it.', {
-					'class': 'notice',
+					'className': 'notice',
 					'hideAfter': false
 				});
 				$(document.body).getElements('pre.example').each(function(code){
@@ -22,7 +22,7 @@
 						eval(this.get('text'));
 					});
 				});
-				
+
 				$('test-element').addEvent('click', function(){
 					this.alert('This is an $("id").alert() example!  Some text to make it a bit longer to test styles.');
 				});
@@ -32,9 +32,9 @@
 	<body>
 		<div id="test-element"></div>
 		<div id="container">
-			<h1>purr usage examples</h1>
+			<h1>Purr usage examples</h1>
 			<div class="section">
-				<h2>A variety of usage examples for purr.</h2>
+				<h2>A variety of usage examples for Purr.</h2>
 <pre>
 // this code ran when the page loaded
 window.addEvent('domready', function(){
@@ -44,7 +44,7 @@ window.addEvent('domready', function(){
 		'position': 'center'
 	});
 	example.alert('Click on the code blocks below to see different examples of purr in action.&lt;br/&gt;&lt;br/&gt;You can dismiss this message by clicking on it.', {
-		'class': 'notice',
+		'className': 'notice',
 		'hideAfter': false
 	});
 	$(document.body).getElements('pre').each(function(code){
@@ -70,13 +70,13 @@ example.alert('a click will usually dismiss these, not this one though', {
 <pre class="example">
 // add special classes
 example.alert('an extra class added', {
-	'class': 'success'
+	'className': 'success'
 });
 example.alert('an extra class added', {
-	'class': 'error'
+	'className': 'error'
 });
 example.alert('an extra class added', {
-	'class': 'notice'
+	'className': 'notice'
 });
 </pre>
 <pre class="example">
@@ -109,7 +109,7 @@ example.alert('won\'t go away unless you click the button.', {
 	}]
 });
 example.alert('Please note that if you pass a button in, clickDismiss will be disabled, but the auto-hiding is still enabled unless you say otherwise.', {
-	'class': 'notice'
+	'className': 'notice'
 });
 </pre>
 <pre class="example">
@@ -135,7 +135,7 @@ example.alert('&lt;object width=&quot;300&quot; height=&quot;265&quot;&gt;&lt;pa
 		'text':		'replace video with cat',
 		'callback':	function(element){
 			new Element('img', {
-				'src': 'images/cat.jpg'
+				'src': 'assets/images/cat.jpg'
 			}).replaces(element.getElement('embed'));
 			element.getElements('button')[1].destroy();
 		}
@@ -143,57 +143,21 @@ example.alert('&lt;object width=&quot;300&quot; height=&quot;265&quot;&gt;&lt;pa
 });
 </pre>
 <pre class="example">
-// a login form for the hell of it
-var form = new Element('form', {
-	'action':	'#',
-	'id':		'login-form'
-});
-form.grab(new Element('h2', {
-	'text': 'login form'
+// an html element can be passed in instead of text or an array
+// it will be injected into the notification
+var followMe = new Element('a', {
+	'styles': {
+		'display':'block',
+		'text-align':'center'
+	},
+	'href': 'http://twitter.com/re5et',
+	'target': '_blank'
+}).grab(new Element('img', {
+	'src': 'assets/images/follow-me.png'
 }));
-var usernameP = new Element('p');
-var usernameLabel = new Element('label', {
-	'text': 'username:',
-	'for': 'username'
-});
-var usernameInput = new Element('input', {
-	'name': 'username',
-	'id':	'username'	
-});
-var passwordP = new Element('p');
-var passwordLabel = new Element('label', {
-	'text': 'password:',
-	'for': 'password'
-});
-var passwordInput = new Element('input', {
-	'name': 'password',
-	'type': 'password',
-	'id':	'username'	
-});
-usernameP.grab(usernameLabel.grab(usernameInput));
-passwordP.grab(passwordLabel.grab(passwordInput));
-form.grab(usernameP).grab(passwordP);
 
 // if you pass an element, it will be injected
-example.alert(form, {
-	'buttons': [{
-		'text': 'log in &raquo;',
-		'callback': function(){
-			var request = new Request({
-				'url': './'
-			});
-			request.addEvent('complete', function(){
-				console.log(this);
-				example.alert('log in successful!', {
-					'class': 'success'
-				});
-			});
-			request.send();
-		}
-	},{
-		'text': 'cancel'
-	}]
-});
+example.alert(followMe);
 </pre>
 			</div>
 			<div class="section">
@@ -205,7 +169,7 @@ example = new Purr({
 	'position':	'left'
 });
 example.alert("in 'mode': 'bottom', the notifications will be placed at the bottom of the page, and the oldest entries will be at the bottom", {
-	'class': 'notice'
+	'className': 'notice'
 });
 example.alert('I am on the bottom left!');
 </pre>
@@ -216,7 +180,7 @@ example = new Purr({
 	'position':	'right'
 });
 example.alert("in 'mode': 'top', the notifications will be placed at the top of the page, and the oldest entries will be at the top", {
-	'class': 'notice'
+	'className': 'notice'
 });
 example.alert('I am on the top right!');
 </pre>
@@ -227,7 +191,7 @@ example = new Purr({
 	'position':	'right'
 });
 example.alert("in 'mode': 'bottom', the notifications will be placed at the bottom of the page, and the oldest entries will be at the bottom", {
-	'class': 'notice'
+	'className': 'notice'
 });
 example.alert('I am on the bottom right!');
 </pre>
@@ -237,8 +201,8 @@ example = new Purr({
 	'mode': 	'top',
 	'position':	'left'
 });
-example.alert("in 'mode':'top', the notifications will be placed at the top of the page, and the oldest entries will be at the top", {
-	'class': 'notice'
+example.alert("in 'mode': 'top', the notifications will be placed at the top of the page, and the oldest entries will be at the top", {
+	'className': 'notice'
 });
 example.alert('I am on the top left!');
 </pre>
@@ -249,7 +213,7 @@ example = new Purr({
 	'position':	'center'
 });
 example.alert("in 'mode': 'bottom', the notifications will be placed at the bottom of the page, and the oldest entries will be at the bottom", {
-	'class': 'notice'
+	'className': 'notice'
 });
 example.alert('I am on the bottom and centered!');
 </pre>
