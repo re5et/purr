@@ -5,7 +5,7 @@
 		<title>Purr - Mootools alert / notification class</title>
 		<link rel="stylesheet" href="assets/css/purr-example.css" type="text/css" media="screen" charset="utf-8" />
 		<script type="text/javascript" src="assets/js/mootools-core.js"></script>
-		<script type="text/javascript" src="assets/js/Purr.js"></script>
+		<script type="text/javascript" src="../Source/purr.js"></script>
 		<script type="text/javascript">
 			window.addEvent('domready', function(){
 				// create an instance for simple examples
@@ -23,7 +23,7 @@
 					});
 				});
 
-				$('test-element').addEvent('click', function(){
+				document.id('test-element').addEvent('click', function(){
 					this.alert('This is an $("id").alert() example!  Some text to make it a bit longer to test styles.');
 				});
 			});
@@ -32,7 +32,7 @@
 	<body>
 		<div id="test-element"></div>
 		<div id="container">
-			<h1>Purr usage examples</h1>
+			<h1><a href="http://github.com/re5et/purr">Purr</a> usage examples</h1>
 			<div class="section">
 				<h2>A variety of usage examples for Purr.</h2>
 <pre>
@@ -122,7 +122,7 @@ example.alert('Big Pink Text!').setStyles({
 <pre class="example">
 // html works as well
 example.alert('&lt;img src=&quot;http://mootools.net/assets/images/mootools.png&quot;&gt;');
-example.alert('&lt;object width=&quot;300&quot; height=&quot;265&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;http://www.youtube.com/v/-q9uLtzDId8&amp;hl=en_US&amp;fs=1&amp;&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowFullScreen&quot; value=&quot;true&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowscriptaccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;embed src=&quot;http://www.youtube.com/v/-q9uLtzDId8&amp;hl=en_US&amp;fs=1&amp;&quot; type=&quot;application/x-shockwave-flash&quot; allowscriptaccess=&quot;always&quot; allowfullscreen=&quot;true&quot; width=&quot;300&quot; height=&quot;265&quot;&gt;&lt;/embed&gt;&lt;/object&gt;', {
+example.alert('&lt;object width=&quot;300&quot; height=&quot;200&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;http://www.youtube.com/v/ob5IjtGe7nE?fs=1&amp;amp;hl=en_US&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowFullScreen&quot; value=&quot;true&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowscriptaccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;embed src=&quot;http://www.youtube.com/v/ob5IjtGe7nE?fs=1&amp;amp;hl=en_US&quot; type=&quot;application/x-shockwave-flash&quot; allowscriptaccess=&quot;always&quot; allowfullscreen=&quot;true&quot; width=&quot;300&quot; height=&quot;200&quot;&gt;&lt;/embed&gt;&lt;/object&gt;', {
 	'hideAfter': false,
 	// you can have as many buttons / callbacks as you want
 	// accepts an array of objects
