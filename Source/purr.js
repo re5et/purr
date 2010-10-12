@@ -1,5 +1,5 @@
 var Purr = new Class({
-	
+
 	'options': {
 		'mode': 'top',
 		'position': 'left',
@@ -47,19 +47,19 @@ var Purr = new Class({
 			}
 		}
 	},
-	
+
 	'Implements': [Options, Events, Chain],
-	
+
 	'initialize': function(options){
 		this.setOptions(options);
 		this.createWrapper();
 		return this;
 	},
-	
+
 	'bindAlert': function(){
 		return this.alert.bind(this);
 	},
-	
+
 	'createWrapper': function(){
 		this.wrapper = new Element(this.options.elements.wrapper, this.options.elementOptions.wrapper);
 		if(this.options.mode == 'top')
@@ -70,16 +70,16 @@ var Purr = new Class({
 		{
 			this.wrapper.setStyle('bottom', 0);
 		}
-		$(document.body).grab(this.wrapper);
+		document.id(document.body).grab(this.wrapper);
 		this.positionWrapper(this.options.position);
 	},
-	
+
 	'positionWrapper': function(position){
-		if($type(position) == 'object')
+		if(typeOf(position) == 'object')
 		{
-			
+
 			var wrapperCoords = this.getWrapperCoords();
-			
+
 			this.wrapper.setStyles({
 				'bottom': '',
 				'left': position.x,
@@ -101,7 +101,7 @@ var Purr = new Class({
 		}
 		return this;
 	},
-	
+
 	'getWrapperCoords': function(){
 		this.wrapper.setStyle('visibility', 'hidden');
 		var measurer = this.alert('need something in here to measure');
@@ -110,19 +110,22 @@ var Purr = new Class({
 		this.wrapper.setStyle('visibility','');
 		return coords;
 	},
-	
+
 	'alert': function(msg, options){
-		
+
+		options = Object.merge({}, this.options.alert, options || {});
+
 		var alert = new Element(this.options.elements.alert, this.options.elementOptions.alert);
-		if($type(msg) == 'string')
+
+		if(typeOf(msg) == 'string')
 		{
 			alert.set('html', msg);
 		}
-		else if($type(msg) == 'element')
+		else if(typeOf(msg) == 'element')
 		{
 			alert.grab(msg);
 		}
-		else if($type(msg) == 'array')
+		else if(typeOf(msg) == 'array')
 		{
 			var alerts = [];
 			msg.each(function(m){
@@ -130,9 +133,9 @@ var Purr = new Class({
 			}, this);
 			return alerts;
 		}
-		options = $merge(this.options.alert, options);
+
 		alert.store('options', options);
-		
+
 		if(options.buttons.length > 0)
 		{
 			options.clickDismiss = false;
@@ -141,15 +144,15 @@ var Purr = new Class({
 			var buttonWrapper = new Element(this.options.elements.buttonWrapper, this.options.elementOptions.buttonWrapper);
 			alert.grab(buttonWrapper);
 			options.buttons.each(function(button){
-				if($defined(button.text))
+				if(button.text != undefined)
 				{
 					var callbackButton = new Element(this.options.elements.button, this.options.elementOptions.button);
 					callbackButton.set('html', button.text);
-					if($defined(button.callback))
+					if(button.callback != undefined)
 					{
 						callbackButton.addEvent('click', button.callback.pass(alert));
 					}
-					if($defined(button.dismiss) && button.dismiss)
+					if(button.dismiss != undefined && button.dismiss)
 					{
 						callbackButton.addEvent('click', this.dismiss.pass(alert, this));
 					}
@@ -157,18 +160,18 @@ var Purr = new Class({
 				}
 			}, this);
 		}
-		if($defined(options.className))
+		if(options.className != undefined)
 		{
 			alert.addClass(options.className);
-		}		
-		
+		}
+
 		this.wrapper.grab(alert, (this.options.mode == 'top') ? 'bottom' : 'top');
-	
-		var fx = $merge(this.options.alert.fx, options.fx);
+
+		var fx = Object.merge(this.options.alert.fx, options.fx);
 		var alertFx = new Fx.Morph(alert, fx);
 		alert.store('fx', alertFx);
 		this.fadeIn(alert);
-		
+
 		if(options.highlight)
 		{
 			alertFx.addEvent('complete', function(){
@@ -183,7 +186,7 @@ var Purr = new Class({
 		{
 			this.dismiss(alert);
 		}
-		
+
 		if(options.clickDismiss)
 		{
 			alert.addEvent('click', function(){
@@ -191,7 +194,7 @@ var Purr = new Class({
 				this.dismiss(alert, true);
 			}.bind(this));
 		}
-		
+
 		if(options.hoverWait)
 		{
 			alert.addEvents({
@@ -203,20 +206,20 @@ var Purr = new Class({
 				}.bind(this)
 			});
 		}
-		
+
 		return alert;
 	},
-	
+
 	'fadeIn': function(alert){
 		var alertFx = alert.retrieve('fx');
 		alertFx.set({
 			'opacity': 0
 		});
 		alertFx.start({
-			'opacity': $pick(this.options.elementOptions.alert.styles.opacity, .9),
+			'opacity': [this.options.elementOptions.alert.styles.opacity, .9].pick(),
 		});
 	},
-	
+
 	'dismiss': function(alert, now){
 		now = now || false;
 		var options = alert.retrieve('options');
@@ -229,7 +232,7 @@ var Purr = new Class({
 			this.fadeOut.delay(options.hideAfter, this, alert);
 		}
 	},
-	
+
 	'fadeOut': function(alert){
 		if(this.holdUp)
 		{
@@ -260,29 +263,29 @@ var Purr = new Class({
 });
 
 Element.implement({
-	
+
 	'alert': function(msg, options){
 		var alert = this.retrieve('alert');
 		if(!alert)
 		{
 			options = options || {
-				'mode':'top' 
+				'mode':'top'
 			};
 			alert = new Purr(options)
 			this.store('alert', alert);
 		}
 
 		var coords = this.getCoordinates();
-		
+
 		alert.alert(msg, options);
-		
+
 		alert.wrapper.setStyles({
 			'bottom': '',
 			'left': (coords.left - (alert.wrapper.getWidth() / 2)) + (this.getWidth() / 2),
 			'top': coords.top - (alert.wrapper.getHeight()),
 			'position': 'absolute'
 		});
-		
+
 	}
-	
+
 });
