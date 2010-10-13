@@ -87,6 +87,7 @@ pre.example:active{
 	position:absolute;
 	left:10px;
 	top:200px;
+	left:200px;
 	padding:10px;
 	cursor:pointer;
 	background:#0F0;

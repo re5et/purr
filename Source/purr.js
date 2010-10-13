@@ -1,3 +1,21 @@
+/*
+---
+script: purr.js
+
+description: Class to create growl-style popup notifications.
+
+license: MIT-style
+
+authors: [atom smith]
+
+requires:
+- core/1.3: [Core, Browser, Array, Function, Number, String, Hash, Event, Class.Extras, Element.Event, Element.Style, Element.Dimensions, Fx.CSS, FX.Tween, Fx.Morph]
+
+provides: [Purr, Element.alert]
+...
+*/
+
+
 var Purr = new Class({
 
 	'options': {
