@@ -1,4 +1,4 @@
-;Purr - Notifications
+Purr - Notifications
 ===========
 
 Purr is an advanced MooTools notifications class that allows you to show growl-style pop-up notifications.  It also provides Elements.alert() to allow a notification to be popped above of an existing element.

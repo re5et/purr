@@ -85,9 +85,9 @@ pre.example:active{
 
 #test-element{
 	position:absolute;
-	left:200px;
+	left:10px;
 	top:200px;
-	width:100px;
-	height:100px;
+	padding:10px;
+	cursor:pointer;
 	background:#0F0;
 }

@@ -3,9 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>Purr - Mootools alert / notification class</title>
-		<link rel="stylesheet" href="assets/css/purr-example.css" type="text/css" media="screen" charset="utf-8" />
-		<script type="text/javascript" src="assets/js/mootools-core.js"></script>
-		<script type="text/javascript" src="../Source/purr.js"></script>
+		<link rel="stylesheet" href="http://github.com/re5et/purr/raw/master/Demo/assets/css/purr-example.css" type="text/css" media="screen" charset="utf-8" />
+		<script type="text/javascript" src="http://github.com/re5et/purr/raw/master/Demo/assets/js/mootools-core.js"></script>
+		<script type="text/javascript" src="http://github.com/re5et/purr/raw/master/Source/purr.js"></script>
 		<script type="text/javascript">
 			window.addEvent('domready', function(){
 				// create an instance for simple examples
@@ -17,20 +17,20 @@
 					'className': 'notice',
 					'hideAfter': false
 				});
-				$(document.body).getElements('pre.example').each(function(code){
+				document.id(document.body).getElements('pre.example').each(function(code){
 					code.addEvent('click', function(){
 						eval(this.get('text'));
 					});
 				});
 
 				document.id('test-element').addEvent('click', function(){
-					this.alert('This is an $("id").alert() example!  Some text to make it a bit longer to test styles.');
+					this.alert('This is an Element.alert() example!');
 				});
 			});
 		</script>
 	</head>
 	<body>
-		<div id="test-element"></div>
+		<div id="test-element">click me!</div>
 		<div id="container">
 			<h1><a href="http://github.com/re5et/purr">Purr</a> usage examples</h1>
 			<div class="section">
@@ -47,10 +47,14 @@ window.addEvent('domready', function(){
 		'className': 'notice',
 		'hideAfter': false
 	});
-	$(document.body).getElements('pre').each(function(code){
+	document.id(document.body).getElements('pre.example').each(function(code){
 		code.addEvent('click', function(){
 			eval(this.get('text'));
 		});
+	});
+
+	document.id('test-element').addEvent('click', function(){
+		this.alert('This is an Element.alert() example!');
 	});
 });
 </pre>
@@ -135,7 +139,7 @@ example.alert('&lt;object width=&quot;300&quot; height=&quot;200&quot;&gt;&lt;pa
 		'text':		'replace video with cat',
 		'callback':	function(element){
 			new Element('img', {
-				'src': 'assets/images/cat.jpg'
+				'src': 'http://github.com/re5et/purr/raw/master/Demo/assets/images/cat.jpg'
 			}).replaces(element.getElement('embed'));
 			element.getElements('button')[1].destroy();
 		}
@@ -153,7 +157,7 @@ var followMe = new Element('a', {
 	'href': 'http://twitter.com/re5et',
 	'target': '_blank'
 }).grab(new Element('img', {
-	'src': 'assets/images/follow-me.png'
+	'src': 'http://github.com/re5et/purr/raw/master/Demo/assets/images/follow-me.png'
 }));
 
 // if you pass an element, it will be injected
