@@ -8,4 +8,4 @@ Purr is an advanced MooTools notifications class that allows you to show growl-s
 How to use
 ----------
 
-[http://re5et.github.com/projects/purr/demo](Check out some examples here).
+[See example usage here](http://re5et.github.com/projects/purr/demo).
