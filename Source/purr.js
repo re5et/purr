@@ -57,9 +57,8 @@ var Purr = new Class({
 			'fx': {
 				'duration': 500
 			},
-			'highlight': false,
 			'highlightRepeat': false,
-			'highlight': {
+			'highlight': { // false to disable highlighting
 				'start': '#FF0',
 				'end': false
 			}
