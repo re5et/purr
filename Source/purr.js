@@ -161,15 +161,15 @@ var Purr = new Class({
 			var buttonWrapper = new Element(this.options.elements.buttonWrapper, this.options.elementOptions.buttonWrapper);
 			alert.grab(buttonWrapper);
 			options.buttons.each(function(button){
-				if(button.text != undefined)
+				if(button.text !== undefined)
 				{
 					var callbackButton = new Element(this.options.elements.button, this.options.elementOptions.button);
 					callbackButton.set('html', button.text);
-					if(button.callback != undefined)
+					if(button.callback !== undefined)
 					{
 						callbackButton.addEvent('click', button.callback.pass(alert));
 					}
-					if(button.dismiss != undefined && button.dismiss)
+					if(button.dismiss !== undefined && button.dismiss)
 					{
 						callbackButton.addEvent('click', this.dismiss.pass(alert, this));
 					}
@@ -177,7 +177,7 @@ var Purr = new Class({
 				}
 			}, this);
 		}
-		if(options.className != undefined)
+		if(options.className !== undefined)
 		{
 			alert.addClass(options.className);
 		}
@@ -233,7 +233,7 @@ var Purr = new Class({
 			'opacity': 0
 		});
 		alertFx.start({
-			'opacity': [this.options.elementOptions.alert.styles.opacity, .9].pick(),
+			'opacity': [this.options.elementOptions.alert.styles.opacity, '.9'].pick()
 		});
 	},
 
@@ -253,7 +253,7 @@ var Purr = new Class({
 	'fadeOut': function(alert){
 		if(this.holdUp)
 		{
-			this.dismiss.delay(100, this, [alert, true])
+			this.dismiss.delay(100, this, [alert, true]);
 			return null;
 		}
 		var alertFx = alert.retrieve('fx');
@@ -263,7 +263,7 @@ var Purr = new Class({
 		}
 		var to = {
 			'opacity': 0
-		}
+		};
 		if(this.options.mode == 'top')
 		{
 			to['margin-top'] = '-'+alert.offsetHeight+'px';
@@ -288,7 +288,7 @@ Element.implement({
 			options = options || {
 				'mode':'top'
 			};
-			alert = new Purr(options)
+			alert = new Purr(options);
 			this.store('alert', alert);
 		}
 
